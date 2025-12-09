@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>문제 해결 훈련</title>
+</head>
+
+<body>
+
+    <h2>기억력 언어 문제해결 능력 훈련</h2>
+
+    <div style="display:flex; align-items:flex-start; gap:20px;">
+
+        <div id="textBox" style="font-size:15px; line-height:1.5;">
+            인터넷 신문기사/ 최근 서아프리카로부터 시작된<br>
+            153에볼라 출혈열로 인해 전 세계가 비상입니다.<br>
+            치사율이 최대 90%에 이르며<br>
+            아직 검증된 백신도 없다보니<br>
+            해외 여행객들은 점차 감소하고 있으며<br>
+            최근에는 에볼라 감염자 17명이 탈출했다는<br>
+            소식이 들려오면서<br>
+            사람들의 우려는 더욱 커지고 있습니다.
+        </div>
+
+        <div>
+            <img src="박상준 이미지.png" style="width:170px; border-radius:10px;">
+        </div>
+
+    </div>
+
+    <p id="qBox"></p>
+
+    <input id="userInput" type="text" placeholder="답 입력"><br><br>
+    <button onclick="next()">확인</button>
+
+    <div id="result"></div>
+
+    <script>
+        let q1 = "Q: 에볼라는 어느 지역에서 시작되었나요?";
+        let q2 = "Q: 에볼라에 감염되면 치사율이 얼마인가요? (%)";
+        let q3 = "Q: 에볼라의 백신이 개발되어 있나요?(네/아니오)";
+
+        let a1 = "서아프리카";
+        let a2 = "90%";
+        let a3 = "아니오";
+
+        let h1 = "'최근 서아프리카로부터 시작한 에볼라'라고 언급되어 있습니다.";
+        let h2 = "'치사율이 최대 90%에 이른다'라고 언급되어 있습니다.";
+        let h3 = "'아직 검증된 백신도 없다'라고 언급되어 있습니다.";
+
+        let user1 = "";
+        let user2 = "";
+        let user3 = "";
+
+        let step = 1;
+
+        document.getElementById("qBox").innerHTML = q1;
+
+        function next() {
+            let input = document.getElementById("userInput").value;
+
+            if (input === "") {
+                alert("답을 입력해주세요.");
+                return;
+            }
+
+            if (step === 1) {
+                user1 = input;
+                document.getElementById("userInput").value = "";
+                step = 2;
+                document.getElementById("qBox").innerHTML = q2;
+            }
+            else if (step === 2) {
+                user2 = input;
+                document.getElementById("userInput").value = "";
+                step = 3;
+                document.getElementById("qBox").innerHTML = q3;
+            }
+            else if (step === 3) {
+                user3 = input;
+                document.getElementById("userInput").value = "";
+                step = 4;
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("qBox").innerHTML = "";
+            document.getElementById("userInput").style.display = "none";
+            document.querySelector("button").style.display = "none";
+
+            let resultText = "";
+
+            resultText += "<h3>결과</h3>";
+
+            resultText += "<p>Q1: " + q1 + "<br>";
+            resultText += "내 답: " + user1 + "<br>";
+            resultText += "정답: " + a1 + "<br>";
+            resultText += "해설: " + h1 + "</p>";
+
+            resultText += "<p>Q2: " + q2 + "<br>";
+            resultText += "내 답: " + user2 + "<br>";
+            resultText += "정답: " + a2 + "<br>";
+            resultText += "해설: " + h2 + "</p>";
+
+            resultText += "<p>Q3: " + q3 + "<br>";
+            resultText += "내 답: " + user3 + "<br>";
+            resultText += "정답: " + a3 + "<br>";
+            resultText += "해설: " + h3 + "</p>";
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+
+</body>
+
+</html>
