@@ -135,9 +135,9 @@
       const dy = y - centerY;
       const distance = Math.round(Math.sqrt(dx*dx + dy*dy));
 
+      let isPerfect = false;
       if (distance < 3) {
-       resultBox.textContent = "정확히 맞춤!";
-       return;
+        isPerfect = true;
      }
     
       const dot = document.createElement("div");
@@ -147,7 +147,11 @@
       this.appendChild(dot);
 
 
+      if (isPerfect) {
+     resultBox.textContent = "정확히 맞춤!";
+        } else {
       resultBox.textContent = `중심으로부터 거리: ${distance}px`;
+     }
 
       document.addEventListener("click", function(e) {
   const isShape = e.target.closest(".shape");
@@ -161,6 +165,4 @@
 
 </body>
 </html>
-
-
 
