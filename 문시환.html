@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+<meta charset="UTF-8">
+<title>시공간 지각 훈련</title>
+
+<style>
+  body { text-align: center; font-family: Arial; }
+  h2 { margin-bottom: 40px; }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+
+  .shapeBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .shape {
+    width: 200px;
+    height: 200px;
+    cursor: crosshair;
+    position: relative;
+    overflow: visible;
+  }
+
+  .square { background: skyblue; }
+
+  .triangle {
+    background: salmon;
+    clip-path: polygon(
+      50% 0%,
+      100% 100%,
+      0% 100%
+    );
+  }
+
+  .diamond {
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+  .diamond::before {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: lightgreen;
+    top: 30px;
+    left: 30px;
+    transform: rotate(45deg); 
+  }
+
+  .pentagon {
+    width: 200px;
+    height: 200px;
+    background: royalblue;
+    clip-path: polygon(
+      50% 0%,
+      100% 38%,
+      82% 100%,
+      18% 100%,
+      0% 38%
+    );
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .result { font-size: 14px; height: 16px; }
+</style>
+</head>
+<body>
+
+<h2>정확히 중앙에 점을 찍어 보세요.</h2>
+
+<div class="container">
+
+  <div class="shapeBox">
+    <div class="shape square" data-name="정사각형"></div>
+    <div class="result"></div>
+  </div>
+
+  <div class="shapeBox">
+    <div class="shape triangle" data-name="삼각형"></div>
+    <div class="result"></div>
+  </div>
+
+  <div class="shapeBox">
+    <div class="shape diamond" data-name="마름모"></div>
+    <div class="result"></div>
+  </div>
+
+  <div class="shapeBox">
+    <div class="shape pentagon" data-name="오각형"></div>
+    <div class="result"></div>
+  </div>
+
+</div>
+
+<script>
+  const shapes = document.querySelectorAll(".shape");
+
+  shapes.forEach(shape => {
+    shape.addEventListener("click", function(e) {
+      const rect = this.getBoundingClientRect();
+      const resultBox = this.parentElement.querySelector(".result");
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+
+      let centerX = rect.width / 2;
+      let centerY = rect.height / 2;
+
+
+      if (this.classList.contains("triangle")) {
+        centerX = rect.width * 0.5;
+        centerY = rect.height * (2/3);
+      }
+
+
+      const dx = x - centerX;
+      const dy = y - centerY;
+      const distance = Math.round(Math.sqrt(dx*dx + dy*dy));
+
+    
+      const dot = document.createElement("div");
+      dot.classList.add("dot");
+      dot.style.left = `${x}px`;
+      dot.style.top = `${y}px`;
+      this.appendChild(dot);
+
+
+      resultBox.textContent = `중심으로부터 거리: ${distance}px`;
+    });
+  });
+</script>
+
+</body>
+</html>
