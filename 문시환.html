@@ -148,10 +148,17 @@
 
 
       resultBox.textContent = `중심으로부터 거리: ${distance}px`;
+
+      document.addEventListener("click", function(e) {
+  const isShape = e.target.closest(".shape");
+  if (!isShape) {
+    alert("도형 안을 클릭해주세요!");
+  }
     });
   });
 </script>
 
 </body>
 </html>
+
 
