@@ -111,9 +111,9 @@
     <button onclick="checkCurrentStep()">확인하기</button>
     <div id="result"></div>
 
+    
     <script>
         var Level = 1;
-
         function checkCurrentStep() {
             var inputId = "q" + Level; 
             var rowId = "row" + Level; 
@@ -140,7 +140,6 @@
                 resultBox.style.color = "skyblue";
 
                 document.getElementById(rowId).classList.remove("active-row");
-                document.getElementById(rowId).classList.add("finished-row");
                 
                 document.getElementById(inputId).disabled = true;
 
@@ -169,4 +168,5 @@
         }
     </script>
 </body>
+
 </html>
